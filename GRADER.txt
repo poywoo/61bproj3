@@ -1,0 +1,75 @@
+*** graph package ***
+
+a) Edge Class
+The Edge class we created was an internal representation of Edges. 
+
+VertexPair ends: kept track of the two vertices this Edge connected.  
+int weight: stored the weight of the Edge object.
+boolean selfedge: true if the Edge was a self-edge, false otherwise
+Edge partner: if the Edge was not a self-edge, it would have a partner since it was a 
+	undirected graph
+DListNode me: this DListNode kept track of the Edge in the edgeList of the Vertex class so
+	that it could be easily removed from the list when removeEdge() was called in WUGraph.
+
+Methods: 
+origin() returned the vertex object that was the origin of this Edge
+destination() returned the vertex object that was the destination of this Edge
+weight() returned the weight of this Edge
+isSelfEdge() returned true if this Edge was a self-edge
+
+
+b) Vertex Class
+
+int degree: stored the degree of this Vertex.
+DList edgeList: stored a list of all the Edge objects, keeping track of what edges this Vertex 
+	object had. 
+Object vertex: stored the vertex object
+DListNode me: this DListNode kept track of the Vertex in the vertList of WUGraph class so
+	that it could be easily removed from the list when removeVertex() was called in WUGraph.
+
+Methods:
+addEdgetoList() takes in an Edge and adds it to the end of this edgeList
+
+c) WUGraph
+
+HashTableChained vertices: stored a hashtable of the vertices
+HashTableChained edgesTable: stored a hashtable of the edges
+DList vertList: stored a DList of Vertex objects, our internal representation of vertices
+int numEdge: stored the number of edges in this WUGraph
+int numVert: stored the number of vertices in this WUGraph
+
+getVertices() runs in O(|V|) time because it iterated through the DList of Vertex objects, vertList. 
+removeVertex() runs in O(d) time because it followed the structure as described in [i]. 
+	Our Vertex class contained a DList of Edges, and each Edge has a reference DListNode me that we 
+	called remove() on, so that edges could be removed easily from each Vertex edgeList. After each 
+	edge is removed, then we can remove the Vertex from the graph.   
+
+
+*** graphalg package *** 
+
+a) KEdge Class
+
+Object origin: stores the origin of this KEdge
+Object destination: stores the destination of this KEdge
+int weight: stores the weight of this KEdge
+
+Methods: 
+origin() returned the vertex object that was the origin of this KEdge
+destination() returned the vertex object that was the destination of this KEdge
+weight() returned the weight of this KEdge
+
+b) Kruskal
+
+The runtime of Kruskal is O (|V| + |E| log|E|), where |V| is the number of vertices in G 
+and |E| is the number of edges in G. 
+Adding the vertices from G should take |V| time because we called getVertices() on G and
+then added that to T. 
+|E| log |E| comes from the runtime of quicksort on the edges. 
+
+
+*** dict ***
+
+a) HashTableChained
+
+To ensure that our HashTable would resize, we changed the constructer so that the number of
+buckets initalizes to 3 rather than a number above 100.  
